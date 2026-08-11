@@ -1,0 +1,22 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "corporate.edytasliwinska.com" }],
+      "destination": "/corporate-site/index.html"
+    },
+    {
+      "source": "/((?!images/|styles\\.css|app\\.js).*)",
+      "has": [{ "type": "host", "value": "corporate.edytasliwinska.com" }],
+      "destination": "/corporate-site/index.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/images/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+    }
+  ]
+}
