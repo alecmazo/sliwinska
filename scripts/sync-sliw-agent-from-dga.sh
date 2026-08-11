@@ -15,7 +15,7 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 DEST="$ROOT/apps/sliw-agent"
 
 # Default: sibling Grok worktree used for DGA / Railway deploys
-DEFAULT_DGA="${HOME}/.grok/worktrees/desktop-claude-research-analyst/2026-07-13-3a2bb445/apps/sliw-agent"
+DEFAULT_DGA="${HOME}/.grok/worktrees/desktop-DGA-research-analyst/2026-07-13-3a2bb445/apps/sliw-agent"
 SRC="${DGA_SLIW:-$DEFAULT_DGA}"
 
 if [[ ! -d "$SRC/sliw_agent" ]]; then
