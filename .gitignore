@@ -1,0 +1,12 @@
+.DS_Store
+node_modules/
+.vercel
+__pycache__/
+*.pyc
+.env
+.env.*
+apps/sliw-agent/data/**/*.json
+!apps/sliw-agent/data/.gitkeep
+scrape/html/
+.idea/
+.vscode/

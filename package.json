@@ -1,0 +1,10 @@
+{
+  "name": "sliwinska",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Edyta Śliwińska marketing site + Sliw agent monorepo",
+  "scripts": {
+    "dev": "python3 -m http.server 4173 --directory public",
+    "start": "npm run dev"
+  }
+}
