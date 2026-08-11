@@ -4,14 +4,61 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Danceology Podcast · Edyta Śliwińska</title>
-  <meta name="description" content="Danceology podcast with Edyta Śliwińska — masters of dance, working pros, and rising stars." />
+  <meta name="description" content="Danceology podcast with Edyta Śliwińska — masters of dance, working pros, and rising stars. Listen on Spotify." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    .listen-row {
+      display: flex; flex-wrap: wrap; gap: 10px; margin: 8px 0 0;
+    }
+    .spotify-show {
+      border-radius: 14px; overflow: hidden;
+      border: 1px solid var(--line);
+      background: #121212;
+      min-height: 152px;
+    }
+    .spotify-show iframe {
+      display: block; width: 100%; border: 0; border-radius: 12px;
+      min-height: 152px;
+    }
+    .episode-list {
+      display: grid; gap: 16px;
+    }
+    .episode {
+      background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+      overflow: hidden; box-shadow: 0 8px 28px rgba(18,15,22,0.05);
+    }
+    .episode-head {
+      padding: 14px 16px 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 14px;
+    }
+    .episode-head h3 {
+      font-family: var(--display); font-size: 1.35rem; margin: 0; font-weight: 700;
+    }
+    .episode-head .ep-n {
+      font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold);
+    }
+    .episode iframe {
+      display: block; width: 100%; border: 0; min-height: 152px;
+    }
+    .platform-card {
+      display: flex; flex-wrap: wrap; gap: 12px; align-items: center;
+      background: var(--blush); border: 1px solid #eddfe6; border-radius: var(--radius);
+      padding: 18px 20px;
+    }
+    .platform-card p { margin: 0; flex: 1 1 220px; color: #4a4450; font-size: 15px; }
+  </style>
 </head>
 <body>
-  <div class="topbar"><span>Danceology podcast</span><span><a href="https://www.instagram.com/edytasliwinska">@edytasliwinska</a></span></div>
+  <div class="topbar">
+    <span>Danceology podcast</span>
+    <span>
+      <a href="https://open.spotify.com/show/3ifqYNJAfAN4nA0QHpt4HQ" target="_blank" rel="noopener">Spotify</a>
+      ·
+      <a href="https://www.instagram.com/danceologypodcast" target="_blank" rel="noopener">@danceologypodcast</a>
+    </span>
+  </div>
   <header class="site">
     <div class="nav-row">
       <a class="brand" href="https://edytasliwinska.com/"><span class="brand-mark">E</span><span><strong>Edyta Śliwińska</strong><em>Podcast</em></span></a>
@@ -31,23 +78,150 @@
   </header>
   <main>
     <div class="page-hero">
-      <p class="eyebrow">Audio</p>
+      <p class="eyebrow">Audio · Spotify</p>
       <h1>Danceology podcast</h1>
-      <p>Interviews with masters of dance, working professionals in today’s most exciting shows, and rising stars ready to amp up the craft. Hosted by Edyta Śliwińska.</p>
+      <p>
+        Interviews with masters of dance, working professionals in today’s most exciting shows,
+        and rising stars ready to amp up the craft. Hosted by Edyta Śliwińska.
+      </p>
+      <div class="listen-row">
+        <a class="btn primary" href="https://open.spotify.com/show/3ifqYNJAfAN4nA0QHpt4HQ" target="_blank" rel="noopener">Open on Spotify</a>
+        <a class="btn ghost" href="https://www.instagram.com/danceologypodcast" target="_blank" rel="noopener">@danceologypodcast</a>
+        <a class="btn ghost" href="https://www.instagram.com/edytasliwinska" target="_blank" rel="noopener">@edytasliwinska</a>
+      </div>
     </div>
+
+    <section class="section">
+      <h2 class="section-title">Listen on Spotify</h2>
+      <p class="section-sub">Full show — same embeds Edyta had on the original site.</p>
+      <div class="spotify-show">
+        <iframe
+          style="border-radius:12px"
+          src="https://open.spotify.com/embed/show/3ifqYNJAfAN4nA0QHpt4HQ?utm_source=generator&theme=0"
+          width="100%"
+          height="152"
+          allowfullscreen=""
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          loading="lazy"
+          title="Danceology on Spotify"
+        ></iframe>
+      </div>
+      <div class="platform-card" style="margin-top:16px">
+        <p>
+          Prefer the app? Open the show on Spotify, follow for new episodes, and share with dancers and teams.
+        </p>
+        <a class="btn rose" href="https://open.spotify.com/show/3ifqYNJAfAN4nA0QHpt4HQ" target="_blank" rel="noopener">Follow Danceology</a>
+      </div>
+    </section>
+
     <section class="section split">
       <img src="images/dwts_cover.jpg" alt="Danceology / DWTS context" />
       <div class="prose">
         <h2>About the show</h2>
-        <p>Episodes live on Edyta’s social channels and major podcast platforms when published. Follow Instagram and X for new drops.</p>
-        <div class="hero-actions">
-          <a class="btn primary" href="https://www.instagram.com/edytasliwinska" target="_blank" rel="noopener">Instagram</a>
-          <a class="btn ghost" href="https://www.x.com/Edyta_Sliwinska" target="_blank" rel="noopener">X</a>
-        </div>
+        <p>
+          The Danceology podcast interviews the great masters of dance, the working professionals starring in
+          today’s most exciting shows, and the rising stars ready to amp up the craft. Join host
+          <strong>Edyta Śliwińska</strong> from <em>Dancing with the Stars</em> as she dives into the world of dance —
+          unique stories and fascinating personalities.
+        </p>
+        <p class="muted" style="font-size:14px;margin-top:10px">
+          Follow for more: Instagram <a href="https://www.instagram.com/danceologypodcast" target="_blank" rel="noopener">@danceologypodcast</a>
+          · <a href="https://www.instagram.com/edytasliwinska" target="_blank" rel="noopener">@edytasliwinska</a>
+          · <a href="https://www.x.com/Edyta_Sliwinska" target="_blank" rel="noopener">X</a>
+        </p>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">Episodes</h2>
+      <p class="section-sub">Play in the browser or open any episode on Spotify.</p>
+      <div class="episode-list">
+        <article class="episode">
+          <div class="episode-head">
+            <span class="ep-n">Episode</span>
+            <h3>Polina Edmunds</h3>
+            <a class="btn ghost" style="margin-left:auto;padding:8px 12px;font-size:13px" href="https://open.spotify.com/episode/7wwCtum8JoeyPmjDYpfOvP" target="_blank" rel="noopener">Spotify →</a>
+          </div>
+          <iframe
+            src="https://open.spotify.com/embed/episode/7wwCtum8JoeyPmjDYpfOvP?utm_source=generator"
+            width="100%" height="152" allowfullscreen=""
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy" title="Polina Edmunds — Danceology"></iframe>
+        </article>
+
+        <article class="episode">
+          <div class="episode-head">
+            <span class="ep-n">Episode</span>
+            <h3>Louis van Amstel</h3>
+            <a class="btn ghost" style="margin-left:auto;padding:8px 12px;font-size:13px" href="https://open.spotify.com/episode/70dImFFVUNk1VEtcVcR9ip" target="_blank" rel="noopener">Spotify →</a>
+          </div>
+          <iframe
+            src="https://open.spotify.com/embed/episode/70dImFFVUNk1VEtcVcR9ip?utm_source=generator"
+            width="100%" height="152" allowfullscreen=""
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy" title="Louis van Amstel — Danceology"></iframe>
+        </article>
+
+        <article class="episode">
+          <div class="episode-head">
+            <span class="ep-n">Episode</span>
+            <h3>Denys Drozdyuk &amp; Antonina Skobina</h3>
+            <a class="btn ghost" style="margin-left:auto;padding:8px 12px;font-size:13px" href="https://open.spotify.com/episode/68n1jBL5yYtmRM4Z19jw5C" target="_blank" rel="noopener">Spotify →</a>
+          </div>
+          <iframe
+            src="https://open.spotify.com/embed/episode/68n1jBL5yYtmRM4Z19jw5C?utm_source=generator"
+            width="100%" height="152" allowfullscreen=""
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy" title="Denys Drozdyuk & Antonina Skobina — Danceology"></iframe>
+        </article>
+
+        <article class="episode">
+          <div class="episode-head">
+            <span class="ep-n">Episode</span>
+            <h3>Dave Scott</h3>
+            <a class="btn ghost" style="margin-left:auto;padding:8px 12px;font-size:13px" href="https://open.spotify.com/episode/30QxwdeFYep9Pp8ZWDjhst" target="_blank" rel="noopener">Spotify →</a>
+          </div>
+          <iframe
+            src="https://open.spotify.com/embed/episode/30QxwdeFYep9Pp8ZWDjhst?utm_source=generator"
+            width="100%" height="152" allowfullscreen=""
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy" title="Dave Scott — Danceology"></iframe>
+        </article>
+
+        <article class="episode">
+          <div class="episode-head">
+            <span class="ep-n">Episode</span>
+            <h3>Fergus Fitzpatrick</h3>
+            <a class="btn ghost" style="margin-left:auto;padding:8px 12px;font-size:13px" href="https://open.spotify.com/episode/2Xk6VNtT47gSnw0GMRRtJk" target="_blank" rel="noopener">Spotify →</a>
+          </div>
+          <iframe
+            src="https://open.spotify.com/embed/episode/2Xk6VNtT47gSnw0GMRRtJk?utm_source=generator"
+            width="100%" height="152" allowfullscreen=""
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy" title="Fergus Fitzpatrick — Danceology"></iframe>
+        </article>
+
+        <article class="episode">
+          <div class="episode-head">
+            <span class="ep-n">Episode</span>
+            <h3>Janelle Issis Lee</h3>
+            <a class="btn ghost" style="margin-left:auto;padding:8px 12px;font-size:13px" href="https://open.spotify.com/episode/12uD8TVysM8Q9TJ9OKrpV7" target="_blank" rel="noopener">Spotify →</a>
+          </div>
+          <iframe
+            src="https://open.spotify.com/embed/episode/12uD8TVysM8Q9TJ9OKrpV7?utm_source=generator"
+            width="100%" height="152" allowfullscreen=""
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy" title="Janelle Issis Lee — Danceology"></iframe>
+        </article>
       </div>
     </section>
   </main>
-  <footer class="site"><p><a href="https://edytasliwinska.com/">Home</a></p></footer>
+  <footer class="site">
+    <p>
+      <a href="https://edytasliwinska.com/">Home</a> ·
+      <a href="https://open.spotify.com/show/3ifqYNJAfAN4nA0QHpt4HQ" target="_blank" rel="noopener">Danceology on Spotify</a>
+    </p>
+  </footer>
   <script src="app.js"></script>
 </body>
 </html>
