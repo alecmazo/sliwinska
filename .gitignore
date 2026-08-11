@@ -10,3 +10,5 @@ apps/sliw-agent/data/**/*.json
 scrape/html/
 .idea/
 .vscode/
+.vercel-deploy-payload.json
+deploy-files.json
