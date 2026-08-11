@@ -10,24 +10,127 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/styles.css" />
   <style>
-    .pkg-list { display: grid; gap: 16px; }
+    .pkg-list { display: grid; gap: 22px; }
     .pkg {
       background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
-      padding: 22px; display: grid; grid-template-columns: 1fr; gap: 10px;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: minmax(200px, 0.95fr) 1.2fr;
+      gap: 0;
+      box-shadow: 0 10px 32px rgba(18,15,22,0.06);
     }
-    .pkg.featured { border-color: var(--rose); box-shadow: 0 0 0 1px var(--rose); }
+    .pkg.featured { border-color: var(--rose); box-shadow: 0 0 0 1px var(--rose), 0 14px 40px rgba(154,61,92,0.12); }
+    .pkg-visual {
+      position: relative; min-height: 260px; background: #1a1420; overflow: hidden;
+    }
+    .pkg-visual img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: transform .55s ease;
+    }
+    .pkg:hover .pkg-visual img { transform: scale(1.05); }
+    .pkg-visual .tag {
+      position: absolute; left: 12px; top: 12px;
+      background: rgba(12,8,14,0.72); color: #fff;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 6px 10px; border-radius: 999px; backdrop-filter: blur(6px);
+    }
+    .pkg-body { padding: 22px 24px; display: grid; gap: 10px; align-content: start; }
     .pkg h3 { font-family: var(--display); font-size: 1.7rem; margin: 0; }
     .pkg .meta { font-size: 13px; font-weight: 700; color: var(--gold); letter-spacing: 0.04em; text-transform: uppercase; }
     .pkg .one { margin: 0; font-size: 1.05rem; color: #3d3642; }
-    .pkg-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 6px; }
+    .pkg-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 4px; }
     .pkg-cols h4 { margin: 0 0 6px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
     .pkg-cols ul { margin: 0; padding-left: 1.1em; color: #4a4450; font-size: 14px; }
     .pkg-cols li { margin: 4px 0; }
     .science {
       background: var(--blush); border: 1px solid #eddfe6; border-radius: var(--radius); padding: 20px;
     }
-    @media (max-width: 800px) {
+    .photo-rail {
+      display: grid;
+      grid-template-columns: 1.35fr 1fr 1fr 1fr;
+      grid-template-rows: 160px 160px;
+      gap: 10px;
+      margin: 8px 0 0;
+    }
+    .photo-rail figure {
+      margin: 0; border-radius: 14px; overflow: hidden;
+      border: 1px solid var(--line); background: #1a1420; position: relative;
+    }
+    .photo-rail figure:first-child { grid-row: 1 / span 2; }
+    .photo-rail img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .photo-rail figcaption {
+      position: absolute; left: 0; right: 0; bottom: 0;
+      padding: 22px 12px 10px;
+      background: linear-gradient(transparent, rgba(0,0,0,.72));
+      color: #fff; font-size: 12px; font-weight: 600;
+    }
+    .stars {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    .stars figure {
+      margin: 0; border-radius: 16px; overflow: hidden;
+      border: 1px solid var(--line); background: #1a1420;
+      aspect-ratio: 3/4; position: relative;
+    }
+    .stars img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .stars figcaption {
+      position: absolute; left: 0; right: 0; bottom: 0;
+      padding: 28px 12px 12px;
+      background: linear-gradient(transparent, rgba(0,0,0,.75));
+      color: #fff; font-size: 13px; font-weight: 600;
+    }
+    .gallery-wide {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    .gallery-wide figure {
+      margin: 0; border-radius: 14px; overflow: hidden;
+      border: 1px solid var(--line); background: #1a1420;
+      aspect-ratio: 4/3;
+    }
+    .gallery-wide figure.tall { aspect-ratio: 3/4; }
+    .gallery-wide figure.wide { grid-column: span 2; aspect-ratio: 16/9; }
+    .gallery-wide img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: transform .45s ease;
+    }
+    .gallery-wide figure:hover img { transform: scale(1.04); }
+    .split-visual {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 18px; align-items: center;
+    }
+    .split-visual .stack {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+    }
+    .split-visual .stack figure {
+      margin: 0; border-radius: 14px; overflow: hidden;
+      border: 1px solid var(--line); aspect-ratio: 1; background: #1a1420;
+    }
+    .split-visual .stack figure:first-child {
+      grid-column: 1 / span 2; aspect-ratio: 16/10;
+    }
+    .split-visual .stack img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    @media (max-width: 900px) {
+      .pkg { grid-template-columns: 1fr; }
+      .pkg-visual { min-height: 220px; aspect-ratio: 16/10; }
+      .photo-rail {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+      }
+      .photo-rail figure:first-child { grid-row: auto; aspect-ratio: 4/5; min-height: 240px; }
+      .photo-rail figure { aspect-ratio: 1; }
+      .stars { grid-template-columns: 1fr 1fr; }
+      .gallery-wide { grid-template-columns: 1fr 1fr; }
+      .gallery-wide figure.wide { grid-column: span 2; }
+      .split-visual { grid-template-columns: 1fr; }
       .pkg-cols { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 520px) {
+      .gallery-wide { grid-template-columns: 1fr; }
+      .gallery-wide figure.wide { grid-column: auto; }
+      .stars { grid-template-columns: 1fr 1fr; }
     }
   </style>
 </head>
@@ -49,8 +152,8 @@
       <nav class="nav">
         <a href="https://edytasliwinska.com/">Home</a>
         <a href="#packages">Packages</a>
+        <a href="#moments">Moments</a>
         <a href="https://edytasliwinska.com/gallery.html">Gallery</a>
-        <a href="#science">Why it works</a>
         <a href="https://edytasliwinska.com/weddings.html">Weddings</a>
         <a class="cta" href="mailto:admin@edytasliwinska.com?subject=Corporate%2015-min%20discovery">Book discovery</a>
       </nav>
@@ -85,18 +188,69 @@
       </div>
     </section>
 
+    <!-- Original corporate photo set + stage energy -->
+    <section class="section" style="padding-top:8px" id="moments">
+      <h2 class="section-title">On the floor</h2>
+      <p class="section-sub">From the studio and the stage — the energy your team walks into.</p>
+      <div class="photo-rail">
+        <figure>
+          <img src="/images/img_1010.jpg" alt="Edyta teaching with full energy" loading="lazy" />
+          <figcaption>Teaching energy</figcaption>
+        </figure>
+        <figure>
+          <img src="/images/img_0992.jpg" alt="Performance moment" loading="lazy" />
+          <figcaption>Performance</figcaption>
+        </figure>
+        <figure>
+          <img src="/images/img_1009.jpg" alt="Studio coaching" loading="lazy" />
+          <figcaption>Studio coaching</figcaption>
+        </figure>
+        <figure>
+          <img src="/images/img_1322.jpg" alt="Stage presence" loading="lazy" />
+          <figcaption>Stage presence</figcaption>
+        </figure>
+        <figure>
+          <img src="/images/img_6232.jpg" alt="Movement and joy" loading="lazy" />
+          <figcaption>Movement &amp; joy</figcaption>
+        </figure>
+        <figure>
+          <img src="/images/show-photos-02.jpg" alt="Live show" loading="lazy" />
+          <figcaption>Live show</figcaption>
+        </figure>
+        <figure>
+          <img src="/images/039b6654-7f0c-43aa-a6c6-ecf082840f46.png" alt="Partner work" loading="lazy" />
+          <figcaption>Partner work</figcaption>
+        </figure>
+      </div>
+    </section>
+
     <section class="section" id="science">
-      <h2 class="section-title">More than entertainment</h2>
-      <p class="section-sub">
-        Instead of another trust fall or a PowerPoint icebreaker nobody remembers by Friday, your team steps onto the floor —
-        laughing, moving, connecting. Barriers dissolve. Hierarchies soften. Real relationships form — fast.
-      </p>
-      <div class="science">
-        <h3 style="font-family:var(--display);margin:0 0 8px;font-size:1.4rem">The science on the floor</h3>
-        <p style="margin:0;color:#4a4450">
-          Rhythmic group movement spikes endorphins, lowers cortisol, and lifts creative cognition.
-          In 45–60 minutes teams walk back sharper, calmer, and more connected — with a shared memory no worksheet can manufacture.
-        </p>
+      <div class="split-visual">
+        <div>
+          <h2 class="section-title">More than entertainment</h2>
+          <p class="section-sub" style="margin-bottom:14px">
+            Instead of another trust fall or a PowerPoint icebreaker nobody remembers by Friday, your team steps onto the floor —
+            laughing, moving, connecting. Barriers dissolve. Hierarchies soften. Real relationships form — fast.
+          </p>
+          <div class="science">
+            <h3 style="font-family:var(--display);margin:0 0 8px;font-size:1.4rem">The science on the floor</h3>
+            <p style="margin:0;color:#4a4450">
+              Rhythmic group movement spikes endorphins, lowers cortisol, and lifts creative cognition.
+              In 45–60 minutes teams walk back sharper, calmer, and more connected — with a shared memory no worksheet can manufacture.
+            </p>
+          </div>
+        </div>
+        <div class="stack">
+          <figure>
+            <img src="/images/fe8642b2-c6a5-4f49-8e23-9577e318944b.png" alt="High-energy performance" loading="lazy" />
+          </figure>
+          <figure>
+            <img src="/images/img_2381.jpg" alt="Studio moment" loading="lazy" />
+          </figure>
+          <figure>
+            <img src="/images/img_5546.jpg" alt="Show lighting" loading="lazy" />
+          </figure>
+        </div>
       </div>
     </section>
 
@@ -106,136 +260,187 @@
 
       <div class="pkg-list">
         <article class="pkg featured" id="icebreaker">
-          <div class="meta">Package 01 · 60–90 min</div>
-          <h3>The Icebreaker</h3>
-          <p class="one">Ultimate upgrade from a corporate happy hour — high-energy, zero-pressure movement that dissolves hierarchy.</p>
-          <div class="pkg-cols">
-            <div>
-              <h4>Best for</h4>
-              <ul>
-                <li>All-hands &amp; department orientations</li>
-                <li>Kickoff for company retreats</li>
-                <li>Post-merger culture integration</li>
-                <li>Holiday parties &amp; milestones</li>
-              </ul>
-            </div>
-            <div>
-              <h4>Benefits</h4>
-              <ul>
-                <li>Cuts awkwardness and hierarchical stiffness</li>
-                <li>Builds trust across departments</li>
-                <li>Creates company lore people retell</li>
-                <li>Visible morale boost, fast</li>
-              </ul>
-            </div>
+          <div class="pkg-visual">
+            <img src="/images/img_1010.jpg" alt="The Icebreaker — group energy" loading="lazy" />
+            <span class="tag">Most requested</span>
           </div>
-          <a class="btn primary" href="mailto:admin@edytasliwinska.com?subject=The%20Icebreaker%20inquiry" style="justify-self:start;margin-top:8px">Request this package</a>
+          <div class="pkg-body">
+            <div class="meta">Package 01 · 60–90 min</div>
+            <h3>The Icebreaker</h3>
+            <p class="one">Ultimate upgrade from a corporate happy hour — high-energy, zero-pressure movement that dissolves hierarchy.</p>
+            <div class="pkg-cols">
+              <div>
+                <h4>Best for</h4>
+                <ul>
+                  <li>All-hands &amp; department orientations</li>
+                  <li>Kickoff for company retreats</li>
+                  <li>Post-merger culture integration</li>
+                  <li>Holiday parties &amp; milestones</li>
+                </ul>
+              </div>
+              <div>
+                <h4>Benefits</h4>
+                <ul>
+                  <li>Cuts awkwardness and hierarchical stiffness</li>
+                  <li>Builds trust across departments</li>
+                  <li>Creates company lore people retell</li>
+                  <li>Visible morale boost, fast</li>
+                </ul>
+              </div>
+            </div>
+            <a class="btn primary" href="mailto:admin@edytasliwinska.com?subject=The%20Icebreaker%20inquiry" style="justify-self:start;margin-top:8px">Request this package</a>
+          </div>
         </article>
 
         <article class="pkg" id="leadership">
-          <div class="meta">Package 02 · Half-day executive seminar</div>
-          <h3>The Leadership Ballroom</h3>
-          <p class="one">Ballroom as a leadership lab — non-verbal communication, psychological safety, and pivoting under pressure.</p>
-          <div class="pkg-cols">
-            <div>
-              <h4>Best for</h4>
-              <ul>
-                <li>Management &amp; exec retreats</li>
-                <li>High-potential accelerator programs</li>
-                <li>Orgs navigating reorg or rapid change</li>
-              </ul>
-            </div>
-            <div>
-              <h4>Benefits</h4>
-              <ul>
-                <li>Stronger non-verbal communication</li>
-                <li>Cross-functional trust at leadership level</li>
-                <li>Graceful pivots under pressure</li>
-                <li>Leadership theory made physical</li>
-              </ul>
-            </div>
+          <div class="pkg-visual">
+            <img src="/images/img_0992.jpg" alt="Leadership Ballroom — partner focus" loading="lazy" />
           </div>
-          <a class="btn primary" href="mailto:admin@edytasliwinska.com?subject=Leadership%20Ballroom%20inquiry" style="justify-self:start;margin-top:8px">Request this package</a>
+          <div class="pkg-body">
+            <div class="meta">Package 02 · Half-day executive seminar</div>
+            <h3>The Leadership Ballroom</h3>
+            <p class="one">Ballroom as a leadership lab — non-verbal communication, psychological safety, and pivoting under pressure.</p>
+            <div class="pkg-cols">
+              <div>
+                <h4>Best for</h4>
+                <ul>
+                  <li>Management &amp; exec retreats</li>
+                  <li>High-potential accelerator programs</li>
+                  <li>Orgs navigating reorg or rapid change</li>
+                </ul>
+              </div>
+              <div>
+                <h4>Benefits</h4>
+                <ul>
+                  <li>Stronger non-verbal communication</li>
+                  <li>Cross-functional trust at leadership level</li>
+                  <li>Graceful pivots under pressure</li>
+                  <li>Leadership theory made physical</li>
+                </ul>
+              </div>
+            </div>
+            <a class="btn primary" href="mailto:admin@edytasliwinska.com?subject=Leadership%20Ballroom%20inquiry" style="justify-self:start;margin-top:8px">Request this package</a>
+          </div>
         </article>
 
         <article class="pkg" id="tech-decompress">
-          <div class="meta">Package 03 · 4-week series · 60 min/week</div>
-          <h3>The Tech-Decompress</h3>
-          <p class="one">Recurring lunchtime movement that fights burnout in screen-heavy teams — progressive, social, addictive.</p>
-          <div class="pkg-cols">
-            <div>
-              <h4>Best for</h4>
-              <ul>
-                <li>Tech / engineering / product orgs</li>
-                <li>Wellness benefits employees actually use</li>
-                <li>Hybrid teams needing culture rituals</li>
-              </ul>
-            </div>
-            <div>
-              <h4>Benefits</h4>
-              <ul>
-                <li>Combats burnout &amp; screen fatigue</li>
-                <li>Posture &amp; sustainable energy</li>
-                <li>Protected calendar ritual people guard</li>
-                <li>Belonging that compounds weekly</li>
-              </ul>
-            </div>
+          <div class="pkg-visual">
+            <img src="/images/img_1322.jpg" alt="Tech-Decompress — recurring movement" loading="lazy" />
           </div>
-          <a class="btn primary" href="mailto:admin@edytasliwinska.com?subject=Tech-Decompress%20inquiry" style="justify-self:start;margin-top:8px">Request this package</a>
+          <div class="pkg-body">
+            <div class="meta">Package 03 · 4-week series · 60 min/week</div>
+            <h3>The Tech-Decompress</h3>
+            <p class="one">Recurring lunchtime movement that fights burnout in screen-heavy teams — progressive, social, addictive.</p>
+            <div class="pkg-cols">
+              <div>
+                <h4>Best for</h4>
+                <ul>
+                  <li>Tech / engineering / product orgs</li>
+                  <li>Wellness benefits employees actually use</li>
+                  <li>Hybrid teams needing culture rituals</li>
+                </ul>
+              </div>
+              <div>
+                <h4>Benefits</h4>
+                <ul>
+                  <li>Combats burnout &amp; screen fatigue</li>
+                  <li>Posture &amp; sustainable energy</li>
+                  <li>Protected calendar ritual people guard</li>
+                  <li>Belonging that compounds weekly</li>
+                </ul>
+              </div>
+            </div>
+            <a class="btn primary" href="mailto:admin@edytasliwinska.com?subject=Tech-Decompress%20inquiry" style="justify-self:start;margin-top:8px">Request this package</a>
+          </div>
         </article>
 
         <article class="pkg" id="office-stars">
-          <div class="meta">Package 04 · Premium holiday &amp; gala</div>
-          <h3>Dancing with the Office Stars</h3>
-          <p class="one">Executives become the stars — private coaching, then a polished gala performance plus company-wide interactive flash.</p>
-          <div class="pkg-cols">
-            <div>
-              <h4>Best for</h4>
-              <ul>
-                <li>Annual holiday parties</li>
-                <li>Company anniversaries &amp; milestones</li>
-                <li>Charity galas &amp; fundraisers</li>
-                <li>Culture content worth filming</li>
-              </ul>
-            </div>
-            <div>
-              <h4>Benefits</h4>
-              <ul>
-                <li>Unbeatable culture content</li>
-                <li>Massive employee engagement</li>
-                <li>Leaders model vulnerability and fun</li>
-                <li>Events people talk about for years</li>
-              </ul>
-            </div>
+          <div class="pkg-visual">
+            <img src="/images/img_6232.jpg" alt="Office Stars gala energy" loading="lazy" />
           </div>
-          <a class="btn primary" href="mailto:admin@edytasliwinska.com?subject=Office%20Stars%20gala%20inquiry" style="justify-self:start;margin-top:8px">Request this package</a>
+          <div class="pkg-body">
+            <div class="meta">Package 04 · Premium holiday &amp; gala</div>
+            <h3>Dancing with the Office Stars</h3>
+            <p class="one">Executives become the stars — private coaching, then a polished gala performance plus company-wide interactive flash.</p>
+            <div class="pkg-cols">
+              <div>
+                <h4>Best for</h4>
+                <ul>
+                  <li>Annual holiday parties</li>
+                  <li>Company anniversaries &amp; milestones</li>
+                  <li>Charity galas &amp; fundraisers</li>
+                  <li>Culture content worth filming</li>
+                </ul>
+              </div>
+              <div>
+                <h4>Benefits</h4>
+                <ul>
+                  <li>Unbeatable culture content</li>
+                  <li>Massive employee engagement</li>
+                  <li>Leaders model vulnerability and fun</li>
+                  <li>Events people talk about for years</li>
+                </ul>
+              </div>
+            </div>
+            <a class="btn primary" href="mailto:admin@edytasliwinska.com?subject=Office%20Stars%20gala%20inquiry" style="justify-self:start;margin-top:8px">Request this package</a>
+          </div>
         </article>
 
         <article class="pkg" id="custom-lab">
-          <div class="meta">Package 05 · Fully bespoke</div>
-          <h3>The Custom Collaboration Lab</h3>
-          <p class="one">Co-designed from the ground up for your pain points, culture dynamics, and performance objectives.</p>
-          <div class="pkg-cols">
-            <div>
-              <h4>Best for</h4>
-              <ul>
-                <li>Structural change or reorg</li>
-                <li>Newly formed or cross-functional teams</li>
-                <li>Unique high-impact experiential events</li>
-                <li>Specific culture / DEI engagement goals</li>
-              </ul>
-            </div>
-            <div>
-              <h4>The promise</h4>
-              <ul>
-                <li>Discovery → custom curriculum</li>
-                <li>Strategically relevant every minute</li>
-                <li>Not a template — built for your moment</li>
-              </ul>
-            </div>
+          <div class="pkg-visual">
+            <img src="/images/fe8642b2-c6a5-4f49-8e23-9577e318944b.png" alt="Custom Collaboration Lab" loading="lazy" />
           </div>
-          <a class="btn primary" href="mailto:admin@edytasliwinska.com?subject=Custom%20Collaboration%20Lab" style="justify-self:start;margin-top:8px">Design a custom lab</a>
+          <div class="pkg-body">
+            <div class="meta">Package 05 · Fully bespoke</div>
+            <h3>The Custom Collaboration Lab</h3>
+            <p class="one">Co-designed from the ground up for your pain points, culture dynamics, and performance objectives.</p>
+            <div class="pkg-cols">
+              <div>
+                <h4>Best for</h4>
+                <ul>
+                  <li>Structural change or reorg</li>
+                  <li>Newly formed or cross-functional teams</li>
+                  <li>Unique high-impact experiential events</li>
+                  <li>Specific culture / DEI engagement goals</li>
+                </ul>
+              </div>
+              <div>
+                <h4>The promise</h4>
+                <ul>
+                  <li>Discovery → custom curriculum</li>
+                  <li>Strategically relevant every minute</li>
+                  <li>Not a template — built for your moment</li>
+                </ul>
+              </div>
+            </div>
+            <a class="btn primary" href="mailto:admin@edytasliwinska.com?subject=Custom%20Collaboration%20Lab" style="justify-self:start;margin-top:8px">Design a custom lab</a>
+          </div>
         </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">Star power your team can feel</h2>
+      <p class="section-sub">
+        The same coaching that put celebrities on national TV — used to unlock connection for engineers, lawyers, sales teams, and the C-suite.
+      </p>
+      <div class="stars">
+        <figure>
+          <img src="/images/edyta-cameron.jpg" alt="Edyta with Cameron Mathison" loading="lazy" />
+          <figcaption>Cameron Mathison</figcaption>
+        </figure>
+        <figure>
+          <img src="/images/edyta-hamilton.jpg" alt="Edyta with George Hamilton" loading="lazy" />
+          <figcaption>George Hamilton</figcaption>
+        </figure>
+        <figure>
+          <img src="/images/edyta-evander.jpg" alt="Edyta with Evander Holyfield" loading="lazy" />
+          <figcaption>Evander Holyfield</figcaption>
+        </figure>
+        <figure>
+          <img src="/images/edyta-joey.jpg" alt="Edyta with Joey Fatone" loading="lazy" />
+          <figcaption>Joey Fatone</figcaption>
+        </figure>
       </div>
     </section>
 
@@ -245,12 +450,47 @@
         Edyta has taught thousands of people convinced they had two left feet — including celebrities on national TV.
         Engineering, legal, sales, C-suite: the floor is the great equalizer. Styles include Samba, Swing, Hip-Hop, Salsa, Cha-Cha, and ballroom leadership metaphors.
       </p>
-      <div class="gallery">
-        <figure><img src="/images/img_2279.jpg" alt="Performance energy" loading="lazy" /></figure>
-        <figure><img src="/images/show-photos-02.jpg" alt="Live show" loading="lazy" /></figure>
-        <figure><img src="/images/dwts_cover.jpg" alt="DWTS pedigree" loading="lazy" /></figure>
-        <figure><img src="/images/alec_20edyta_20show_20pic.jpeg" alt="Stage" loading="lazy" /></figure>
+      <div class="gallery-wide">
+        <figure class="wide">
+          <img src="/images/img_2279.jpg" alt="Performance energy" loading="lazy" />
+        </figure>
+        <figure>
+          <img src="/images/show-photos-02.jpg" alt="Live show" loading="lazy" />
+        </figure>
+        <figure>
+          <img src="/images/dwts_cover.jpg" alt="DWTS pedigree" loading="lazy" />
+        </figure>
+        <figure>
+          <img src="/images/alec_20edyta_20show_20pic.jpeg" alt="Stage with Alec" loading="lazy" />
+        </figure>
+        <figure>
+          <img src="/images/img_5645.jpg" alt="Performance lighting" loading="lazy" />
+        </figure>
+        <figure>
+          <img src="/images/img_5691.jpg" alt="Show moment" loading="lazy" />
+        </figure>
+        <figure>
+          <img src="/images/img_1009.jpg" alt="Coaching detail" loading="lazy" />
+        </figure>
+        <figure>
+          <img src="/images/c86755a6-b244-4819-b62a-5d802c96445b.jpeg" alt="Studio portrait energy" loading="lazy" />
+        </figure>
+        <figure>
+          <img src="/images/photo-dec-19-2023-8-53-34-am-1-.jpg" alt="Partner dance" loading="lazy" />
+        </figure>
+        <figure>
+          <img src="/images/img_1318.jpg" alt="Movement" loading="lazy" />
+        </figure>
+        <figure>
+          <img src="/images/img_8681.jpg" alt="Performance pose" loading="lazy" />
+        </figure>
+        <figure>
+          <img src="/images/corporate-3bdc07cf1f76.png" alt="Team energy" loading="lazy" />
+        </figure>
       </div>
+      <p style="margin:18px 0 0">
+        <a class="btn ghost" href="https://edytasliwinska.com/gallery.html">Open full gallery →</a>
+      </p>
     </section>
 
     <section class="band">
@@ -278,7 +518,6 @@
       <a href="https://weddings.edytasliwinska.com/">Wedding booking</a>
       <a href="https://www.instagram.com/edytasliwinska">Instagram</a>
     </p>
-    <p class="fine">Replaces the former Gamma package host. Not affiliated with ABC’s Dancing with the Stars beyond Edyta’s work as a professional on the series.</p>
   </footer>
   <script src="/app.js"></script>
 </body>
