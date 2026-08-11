@@ -84,14 +84,38 @@ Keep existing:
 - Blog was effectively empty on source — omitted as a primary nav item (can re-add later).
 - Nav order: **Weddings → Corporate → About → Kids → Podcast → Contact**.
 
-## Sliw agent
+## Sliw agent + single database (do not split yet)
 
-Copied into `apps/sliw-agent/` from the DGA monorepo. Runtime still on Railway project `upbeat-ambition` until you create a dedicated Railway project (optional; not required for $ savings).
+| Concern | Source of truth |
+|---------|-----------------|
+| **Live CRM / leads / Stripe “won” / storefront media** | **One Railway Postgres** (`DATABASE_URL` on services `web` + `sliw`) |
+| **Wedding storefront + desk code (deployed)** | DGA monorepo `apps/sliw-agent/` → Railway project **upbeat-ambition** |
+| **Code mirror in this repo** | `apps/sliw-agent/` (synced; not the live Railway git source yet) |
+| **Marketing HTML/images** | This repo `public/` → Vercel |
+| Local `data/*.json` | Offline fallback only — **gitignored**; never treated as production |
+
+**Cannot lose data rule:** keep the current Postgres. Do not create a second Railway database for Sliwinska while the first still holds couples inbox / payments. A future project split must **migrate** that DB (dump/restore), not start empty.
+
+### Sync code from DGA → this repo
+
+```bash
+# from Sliwinska repo root
+./scripts/sync-sliw-agent-from-dga.sh
+# or: DGA_SLIW=/path/to/monorepo/apps/sliw-agent ./scripts/sync-sliw-agent-from-dga.sh
+```
+
+Script copies Python, desk UI, `weddings-site/`, docs — **not** CRM JSON.
+
+### What deploys where (today)
+
+```text
+Sliwinska/public/          → Vercel  → edytasliwinska.com, corporate…
+DGA monorepo apps/sliw-agent → Railway → weddings. + sliw.  (+ shared Postgres)
+```
 
 ## Next steps
 
-1. Preview `public/` locally.
-2. Deploy `public/` to Vercel; point apex + www DNS.
-3. Build thin `corporate` packages page → `corporate.edytasliwinska.com`; retire Gamma link.
-4. Cancel GoDaddy Website + Marketing after DNS cutover verified.
-5. Optional: new Railway project **Sliwinska** with only sliw + weddings services.
+1. Keep using **one** Railway Postgres for all Sliw CRM.  
+2. After wedding/desk code changes in DGA: run `./scripts/sync-sliw-agent-from-dga.sh` and commit here.  
+3. Marketing changes: edit `public/`, deploy Vercel only.  
+4. Optional later: dedicated Railway project + **migrate** Postgres — never dual-write.
