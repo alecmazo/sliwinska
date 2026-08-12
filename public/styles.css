@@ -339,6 +339,78 @@ blockquote footer { font-size: 12px; color: var(--muted); font-weight: 700; }
 }
 .page-hero-visual p { margin: 0; color: rgba(255,255,255,.88); max-width: 38em; }
 
+/* DWTS pedigree — tasteful, immediately readable */
+.pedigree {
+  display: grid;
+  grid-template-columns: 0.78fr 1.22fr;
+  gap: 36px;
+  align-items: center;
+}
+.pedigree-poster {
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  box-shadow: 0 20px 56px rgba(18,15,22,0.16);
+  background: #120f16;
+}
+.pedigree-poster img {
+  width: 100%;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  object-position: center 18%;
+}
+.pedigree-poster figcaption {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  padding: 28px 16px 14px;
+  background: linear-gradient(transparent, rgba(8,6,12,.82));
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+.pedigree .prose h2 { margin-top: 0; }
+.pedigree-note {
+  font-size: 13px;
+  color: var(--muted);
+  margin: 14px 0 0;
+}
+.partner-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-top: 18px;
+}
+.partner-row figure {
+  margin: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  aspect-ratio: 3/4;
+  border: 1px solid var(--line);
+  background: #1a1420;
+  position: relative;
+}
+.partner-row img { width: 100%; height: 100%; object-fit: cover; }
+.partner-row figcaption {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  padding: 22px 8px 8px;
+  background: linear-gradient(transparent, rgba(0,0,0,.78));
+  color: #fff; font-size: 11px; font-weight: 600;
+  text-align: center;
+}
+
+.audience-pills {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  list-style: none; padding: 0; margin: 0 0 18px;
+}
+.audience-pills li {
+  font-size: 12px; font-weight: 700; letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: var(--blush); color: var(--rose-dark);
+  border: 1px solid #eddfe6;
+  padding: 6px 12px; border-radius: 999px;
+}
+
 footer.site {
   border-top: 1px solid var(--line); padding: 28px 20px 40px; text-align: center;
   color: var(--muted); font-size: 13px;
@@ -372,9 +444,10 @@ footer.site .fine { font-size: 11.5px; margin-top: 10px; }
     flex-direction: column; align-items: stretch; padding: 10px; box-shadow: 0 16px 40px rgba(0,0,0,.08);
   }
   .nav.open { display: flex; }
-  .hero, .priority-grid, .split, .quotes, .steps, .contact-grid, .gallery, .mosaic {
+  .hero, .priority-grid, .split, .quotes, .steps, .contact-grid, .gallery, .mosaic, .pedigree {
     grid-template-columns: 1fr;
   }
+  .partner-row { grid-template-columns: 1fr 1fr; }
   .mosaic { grid-template-rows: auto; }
   .mosaic figure:first-child { grid-row: auto; min-height: 240px; }
   .gallery { grid-template-columns: 1fr 1fr; }

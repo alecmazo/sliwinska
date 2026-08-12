@@ -7,13 +7,6 @@
     "tall": false
   },
   {
-    "file": "7-8yr-old.jpg",
-    "src": "images/7-8yr-old.jpg",
-    "label": "Kids class",
-    "wide": false,
-    "tall": false
-  },
-  {
     "file": "about-d8e43c458a0a.jpg",
     "src": "images/about-d8e43c458a0a.jpg",
     "label": "Portrait",
@@ -31,20 +24,6 @@
     "file": "alec_20edyta_20show_20pic.jpeg",
     "src": "images/alec_20edyta_20show_20pic.jpeg",
     "label": "Stage with Alec",
-    "wide": false,
-    "tall": false
-  },
-  {
-    "file": "b44b9f745edbce5cfb2a8e548565c2b4.jpeg",
-    "src": "images/b44b9f745edbce5cfb2a8e548565c2b4.jpeg",
-    "label": "B44B9F745Edbce5Cfb2A8E548565C2B4",
-    "wide": false,
-    "tall": false
-  },
-  {
-    "file": "c86755a6-b244-4819-b62a-5d802c96445b.jpeg",
-    "src": "images/c86755a6-b244-4819-b62a-5d802c96445b.jpeg",
-    "label": "C86755A6 B244 4819 B62A 5D802C96445B",
     "wide": false,
     "tall": false
   },
@@ -147,20 +126,6 @@
     "tall": false
   },
   {
-    "file": "img_2279.jpg",
-    "src": "images/img_2279.jpg",
-    "label": "Performance",
-    "wide": false,
-    "tall": false
-  },
-  {
-    "file": "img_2381.jpg",
-    "src": "images/img_2381.jpg",
-    "label": "Studio \u00b7 Img 2381",
-    "wide": false,
-    "tall": true
-  },
-  {
     "file": "img_4545.jpg",
     "src": "images/img_4545.jpg",
     "label": "Studio \u00b7 Img 4545",
@@ -219,30 +184,9 @@
   {
     "file": "img_8693-3494e13.jpg",
     "src": "images/img_8693-3494e13.jpg",
-    "label": "Studio \u00b7 Img 8693 3494E13",
+    "label": "Iconic DWTS poster",
     "wide": false,
-    "tall": false
-  },
-  {
-    "file": "kids-998b9697863f.jpg",
-    "src": "images/kids-998b9697863f.jpg",
-    "label": "Youth program",
-    "wide": false,
-    "tall": false
-  },
-  {
-    "file": "photo-dec-16-2023-6-17-29-pm.jpg",
-    "src": "images/photo-dec-16-2023-6-17-29-pm.jpg",
-    "label": "Photo Dec 16 2023 6 17 29 Pm",
-    "wide": false,
-    "tall": false
-  },
-  {
-    "file": "photo-dec-19-2023-8-53-34-am-1-.jpg",
-    "src": "images/photo-dec-19-2023-8-53-34-am-1-.jpg",
-    "label": "Photo Dec 19 2023 8 53 34 Am 1 ",
-    "wide": false,
-    "tall": false
+    "tall": true
   },
   {
     "file": "show-photos-02.jpg",

@@ -1,6 +1,10 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
+  "redirects": [
+    { "source": "/kids", "destination": "/", "permanent": false },
+    { "source": "/kids.html", "destination": "/", "permanent": false }
+  ],
   "rewrites": [
     {
       "source": "/",
