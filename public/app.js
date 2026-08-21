@@ -165,25 +165,36 @@
             encodeURIComponent(listing.mapsQuery) +
             "&z=15&output=embed";
         }
-        grid.innerHTML = (data.reviews || [])
+        function cardHtml(rev, featured) {
+          const when = [rev.author, rev.date].filter(Boolean).join(" · ");
+          return (
+            "<div class=\"stars\" aria-label=\"" +
+            (rev.stars || 5) +
+            ' stars">' +
+            stars(rev.stars || 5) +
+            "</div>" +
+            "<p>“" +
+            String(rev.text || "").replace(/</g, "&lt;") +
+            "”</p>" +
+            "<footer><span>" +
+            when +
+            '</span><span class="review-source">' +
+            (rev.source || "") +
+            "</span></footer>"
+          );
+        }
+        const list = data.reviews || [];
+        const featured = list.find((r) => r.featured);
+        const featEl = document.getElementById("featured-review");
+        let rest = list;
+        if (featEl && featured) {
+          featEl.innerHTML = cardHtml(featured, true);
+          rest = list.filter((r) => r !== featured);
+        }
+        grid.innerHTML = rest
           .map((rev) => {
-            const when = [rev.author, rev.date].filter(Boolean).join(" · ");
-            return (
-              "<blockquote class=\"review-card\">" +
-              '<div class="stars" aria-label="' +
-              (rev.stars || 5) +
-              ' stars">' +
-              stars(rev.stars || 5) +
-              "</div>" +
-              "<p>“" +
-              String(rev.text || "").replace(/</g, "&lt;") +
-              "”</p>" +
-              "<footer><span>" +
-              when +
-              '</span><span class="review-source">' +
-              (rev.source || "") +
-              "</span></footer></blockquote>"
-            );
+            const cls = rev.featured ? "review-card featured" : "review-card";
+            return '<blockquote class="' + cls + '">' + cardHtml(rev) + "</blockquote>";
           })
           .join("");
       })
