@@ -48,4 +48,148 @@
       if (e.key === "Escape") closeLb();
     });
   }
+
+  function stars(n) {
+    const s = Math.max(0, Math.min(5, Number(n) || 0));
+    return "★★★★★".slice(0, s) + "☆☆☆☆☆".slice(s);
+  }
+
+  function toEmbedSrc(url) {
+    if (!url) return null;
+    const u = String(url).trim();
+    const yt =
+      u.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([A-Za-z0-9_-]{6,})/) ||
+      u.match(/youtube\.com\/shorts\/([A-Za-z0-9_-]{6,})/);
+    if (yt) return { kind: "iframe", src: "https://www.youtube.com/embed/" + yt[1] + "?rel=0" };
+    const vimeo = u.match(/vimeo\.com\/(?:video\/)?(\d+)/);
+    if (vimeo) return { kind: "iframe", src: "https://player.vimeo.com/video/" + vimeo[1] };
+    return { kind: "file", src: u };
+  }
+
+  function mountWeddingVideo() {
+    const host = document.getElementById("wedding-video");
+    const frame = document.getElementById("wedding-video-frame");
+    if (!host || !frame) return;
+
+    const files = [
+      "media/wedding-first-dance.mp4",
+      "media/wedding-dance.mp4",
+      "media/first-dance.mp4",
+      "media/wedding-first-dance.webm",
+    ];
+
+    function showFile(src, poster) {
+      host.hidden = false;
+      frame.innerHTML =
+        '<video controls playsinline preload="metadata"' +
+        (poster ? ' poster="' + poster + '"' : "") +
+        '><source src="' +
+        src +
+        '"></video>';
+    }
+    function showIframe(src) {
+      host.hidden = false;
+      frame.innerHTML =
+        '<iframe src="' +
+        src +
+        '" title="Wedding first dance" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen loading="lazy"></iframe>';
+    }
+
+    fetch("site-media.json", { cache: "no-store" })
+      .then((r) => (r.ok ? r.json() : {}))
+      .catch(() => ({}))
+      .then((cfg) => {
+        const v = (cfg && cfg.weddingVideo) || {};
+        const poster = v.poster || "images/wedding-couple.jpeg";
+        const cap = document.getElementById("wedding-video-caption");
+        if (cap && v.caption && v.src) cap.textContent = v.caption;
+        const title = document.getElementById("wedding-video-title");
+        if (title && v.title) title.textContent = v.title;
+
+        if (v.src) {
+          const embed = toEmbedSrc(v.src);
+          if (embed.kind === "iframe") {
+            showIframe(embed.src);
+            return;
+          }
+          showFile(embed.src, poster);
+          return;
+        }
+
+        let i = 0;
+        function tryNext() {
+          if (i >= files.length) {
+            host.hidden = true;
+            return;
+          }
+          const src = files[i++];
+          const probe = document.createElement("video");
+          probe.preload = "metadata";
+          probe.onloadedmetadata = () => showFile(src, poster);
+          probe.onerror = tryNext;
+          probe.src = src;
+        }
+        tryNext();
+      });
+  }
+
+  function mountReviews() {
+    const grid = document.getElementById("review-grid");
+    if (!grid) return;
+    fetch("reviews.json", { cache: "no-store" })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data) => {
+        if (!data) return;
+        const listing = data.listing || {};
+        const badge = document.getElementById("google-badge");
+        if (badge) {
+          const count = listing.count != null ? listing.count : (data.reviews || []).length;
+          badge.innerHTML =
+            '<div><strong>' +
+            (listing.rating != null ? listing.rating.toFixed(1) : "5.0") +
+            ' <span class="stars">' +
+            stars(listing.rating || 5) +
+            "</span></strong><span>" +
+            (listing.name || "Dance Sport classes") +
+            " · " +
+            count +
+            " review" +
+            (count === 1 ? "" : "s") +
+            "</span></div>";
+          if (listing.googleUrl) badge.href = listing.googleUrl;
+        }
+        const map = document.getElementById("google-map");
+        if (map && listing.mapsQuery) {
+          map.src =
+            "https://maps.google.com/maps?q=" +
+            encodeURIComponent(listing.mapsQuery) +
+            "&z=15&output=embed";
+        }
+        grid.innerHTML = (data.reviews || [])
+          .map((rev) => {
+            const when = [rev.author, rev.date].filter(Boolean).join(" · ");
+            return (
+              "<blockquote class=\"review-card\">" +
+              '<div class="stars" aria-label="' +
+              (rev.stars || 5) +
+              ' stars">' +
+              stars(rev.stars || 5) +
+              "</div>" +
+              "<p>“" +
+              String(rev.text || "").replace(/</g, "&lt;") +
+              "”</p>" +
+              "<footer><span>" +
+              when +
+              '</span><span class="review-source">' +
+              (rev.source || "") +
+              "</span></footer></blockquote>"
+            );
+          })
+          .join("");
+      })
+      .catch(() => {});
+  }
+
+  mountWeddingVideo();
+  mountReviews();
 })();
