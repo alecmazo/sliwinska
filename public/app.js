@@ -68,68 +68,39 @@
 
   function mountWeddingVideo() {
     const host = document.getElementById("wedding-video");
-    const frame = document.getElementById("wedding-video-frame");
-    if (!host || !frame) return;
+    if (!host) return;
 
-    const files = [
-      "media/wedding-first-dance.mp4",
-      "media/wedding-dance.mp4",
-      "media/first-dance.mp4",
-      "media/wedding-first-dance.webm",
-    ];
-
-    function showFile(src, poster) {
-      host.hidden = false;
-      frame.innerHTML =
-        '<video controls playsinline preload="metadata"' +
-        (poster ? ' poster="' + poster + '"' : "") +
-        '><source src="' +
-        src +
-        '"></video>';
-    }
-    function showIframe(src) {
-      host.hidden = false;
-      frame.innerHTML =
-        '<iframe src="' +
-        src +
-        '" title="Wedding first dance" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen loading="lazy"></iframe>';
+    function itemHtml(v) {
+      const cap = v.caption ? '<p class="video-caption">' + v.caption + "</p>" : "";
+      const embed = toEmbedSrc(v.src);
+      if (!embed) return "";
+      let body = "";
+      if (embed.kind === "iframe") {
+        body =
+          '<iframe src="' +
+          embed.src +
+          '" title="Wedding first dance" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen loading="lazy"></iframe>';
+      } else {
+        const poster = v.poster ? ' poster="' + v.poster + '"' : "";
+        body = '<video controls playsinline preload="metadata"' + poster + '><source src="' + embed.src + '"></video>';
+      }
+      return '<div class="video-item"><div class="video-frame">' + body + "</div>" + cap + "</div>";
     }
 
     fetch("site-media.json", { cache: "no-store" })
       .then((r) => (r.ok ? r.json() : {}))
       .catch(() => ({}))
       .then((cfg) => {
-        const v = (cfg && cfg.weddingVideo) || {};
-        const poster = v.poster || "images/wedding-couple.jpeg";
-        const cap = document.getElementById("wedding-video-caption");
-        if (cap && v.caption && v.src) cap.textContent = v.caption;
         const title = document.getElementById("wedding-video-title");
-        if (title && v.title) title.textContent = v.title;
-
-        if (v.src) {
-          const embed = toEmbedSrc(v.src);
-          if (embed.kind === "iframe") {
-            showIframe(embed.src);
-            return;
-          }
-          showFile(embed.src, poster);
+        if (title && cfg.weddingVideo && cfg.weddingVideo.title) title.textContent = cfg.weddingVideo.title;
+        let list = Array.isArray(cfg.weddingVideos) ? cfg.weddingVideos.filter((v) => v && v.src) : [];
+        if (!list.length && cfg.weddingVideo && cfg.weddingVideo.src) list = [cfg.weddingVideo];
+        if (!list.length) {
+          host.hidden = true;
           return;
         }
-
-        let i = 0;
-        function tryNext() {
-          if (i >= files.length) {
-            host.hidden = true;
-            return;
-          }
-          const src = files[i++];
-          const probe = document.createElement("video");
-          probe.preload = "metadata";
-          probe.onloadedmetadata = () => showFile(src, poster);
-          probe.onerror = tryNext;
-          probe.src = src;
-        }
-        tryNext();
+        host.hidden = false;
+        host.innerHTML = list.map(itemHtml).join("");
       });
   }
 
@@ -174,7 +145,7 @@
             stars(rev.stars || 5) +
             "</div>" +
             "<p>“" +
-            String(rev.text || "").replace(/</g, "&lt;") +
+            String(rev.text || "").replace(/</g, "&lt;").replace(/\n\n/g, "</p><p>").replace(/\n/g, "<br>") +
             "”</p>" +
             "<footer><span>" +
             when +

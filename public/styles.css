@@ -416,14 +416,24 @@ blockquote footer { font-size: 12px; color: var(--muted); font-weight: 700; }
   max-width: var(--max); margin: 0 auto; padding: 28px 20px 8px;
 }
 .video-feature[hidden] { display: none !important; }
+.video-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  justify-items: center;
+  align-items: start;
+  margin-bottom: 18px;
+}
+.video-item { width: 100%; max-width: 300px; }
 .video-frame {
   position: relative;
-  border-radius: 20px; overflow: hidden;
+  border-radius: 18px; overflow: hidden;
   background: #120f16; border: 1px solid var(--line);
-  box-shadow: 0 18px 50px rgba(18,15,22,0.14);
+  box-shadow: 0 14px 40px rgba(18,15,22,0.12);
   aspect-ratio: 9/16;
-  max-width: min(420px, 100%);
-  max-height: min(78vh, 740px);
+  width: 100%;
+  max-width: 300px;
+  max-height: min(52vh, 480px);
   margin: 0 auto;
 }
 .video-frame video,
@@ -437,21 +447,18 @@ blockquote footer { font-size: 12px; color: var(--muted); font-weight: 700; }
 }
 .video-with-review {
   display: grid;
-  grid-template-columns: minmax(240px, 380px) 1fr;
-  gap: 28px;
-  align-items: center;
+  gap: 18px;
 }
 .review-card.featured {
-  grid-column: 1 / -1;
-  padding: 22px 24px;
+  padding: 20px 22px;
   border-color: var(--rose);
   box-shadow: 0 0 0 1px var(--rose), 0 12px 36px rgba(154,61,92,0.12);
 }
 .review-card.featured p {
   font-family: var(--display);
-  font-size: 1.45rem;
-  line-height: 1.35;
-  margin: 10px 0 14px;
+  font-size: 1.18rem;
+  line-height: 1.4;
+  margin: 10px 0 12px;
 }
 
 /* Google / listing reviews */
