@@ -71,6 +71,7 @@
     if (!host) return;
 
     function itemHtml(v) {
+      const label = v.label ? '<p class="video-label">' + v.label + "</p>" : "";
       const cap = v.caption ? '<p class="video-caption">' + v.caption + "</p>" : "";
       const embed = toEmbedSrc(v.src);
       if (!embed) return "";
@@ -84,7 +85,7 @@
         const poster = v.poster ? ' poster="' + v.poster + '"' : "";
         body = '<video controls playsinline preload="metadata"' + poster + '><source src="' + embed.src + '"></video>';
       }
-      return '<div class="video-item"><div class="video-frame">' + body + "</div>" + cap + "</div>";
+      return '<div class="video-item"><div class="video-frame">' + body + "</div>" + label + cap + "</div>";
     }
 
     fetch("site-media.json", { cache: "no-store" })
